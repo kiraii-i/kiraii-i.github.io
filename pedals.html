@@ -1215,6 +1215,7 @@ const state = {
   loopTimer: null,
   tunerFreq: 0,
   meterLevel: 0,
+  demoInterval: null,
   params: {
     chorusRate:0.5, chorusDepth:0.3, chorusMix:0.5,
     phaserRate:0.8, phaserDepth:0.7, phaserFeedback:0.5,
@@ -1675,6 +1676,9 @@ async function connectToPedal() {
 }
 
 function startDemo() {
+  // Clear any existing demo interval
+  if (state.demoInterval) clearInterval(state.demoInterval);
+  
   state.demoMode = true;
   state.connected = true;
   setConnState('connected', 'Demo Mode');
@@ -1791,7 +1795,7 @@ function applyStatusData(d) {
 function startDemoSimulation() {
   let t = 0;
   // Fake tuner oscillation
-  setInterval(() => {
+  state.demoInterval = setInterval(() => {
     t += 0.05;
     // Simulate string being played
     const baseFreq = 110; // A2
