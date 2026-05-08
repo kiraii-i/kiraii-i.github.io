@@ -940,7 +940,7 @@ body::before {
     <button class="btn-connect" onclick="connectToPedal()">Connect to Pedal</button>
 
     <a class="demo-link" href="javascript:void(0)" onclick="startDemo()">↳ No hardware? Try Demo Mode</a>
-    
+
     <div class="connect-hint">
       <div>1. Connect phone WiFi to <code>GuitarPedal</code></div>
       <div>2. Password: <code>guitar1234</code></div>
@@ -1649,11 +1649,8 @@ function showConnectOverlay() {
 function hideConnectOverlay() {
   const overlay = document.getElementById('connectOverlay');
   if (overlay) {
-    overlay.style.opacity = '0';
-    overlay.style.pointerEvents = 'none'; 
-    setTimeout(() => {
-      overlay.classList.add('hidden');
-    }, 400);
+    overlay.style.display = 'none'; // دي هتخفيه تماماً فوراً
+    overlay.classList.add('hidden');
   }
 }
 
@@ -1684,9 +1681,16 @@ async function connectToPedal() {
 function startDemo() {
   state.demoMode = true;
   state.connected = true;
+  
+  // السطر ده هو اللي بيخلي البرنامج يصدق إنه متصل
   setConnState('connected', 'Demo Mode');
+  
+  // السطر ده بيخفي الشاشة السودة
   hideConnectOverlay();
+  
+  // السطر ده بيحرك المؤشرات (التونر)
   startDemoSimulation();
+  
   showToast('✓ Demo mode active');
 }
 
