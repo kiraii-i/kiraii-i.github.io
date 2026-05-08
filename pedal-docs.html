@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ESP32 Multi-Effect Pedal — Complete Guide</title>
+<title>ESP32 Multi-Effect Pedal</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -1515,105 +1515,6 @@ nav-pills { display: flex; gap: 6px; }
   </div>
 </section>
 
-<!-- ═══════════ CODE ═══════════ -->
-<section class="section z1" id="code">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-tag" style="background:rgba(127,255,0,.1);color:var(--acc3)">الكود</div>
-      <h2>كود Arduino IDE الكامل</h2>
-      <p>الكود الكامل موجود في ملف <code style="background:rgba(127,255,0,.1);color:var(--acc3);padding:2px 8px;border-radius:4px;font-family:var(--mono)">esp32_pedal_firmware.ino</code> — حمّله واشتغل فيه</p>
-    </div>
-
-    <div class="grid-2" style="margin-bottom:24px">
-      <div class="notice info">
-        <div class="notice-icon">📦</div>
-        <div class="notice-text">
-          <strong>Libraries المطلوبة في Arduino IDE</strong>
-          Board: <code>ESP32 by Espressif</code> (من Board Manager) — لا تحتاج libraries إضافية، كل حاجة built-in في ESP32
-        </div>
-      </div>
-      <div class="notice ok">
-        <div class="notice-icon">📱</div>
-        <div class="notice-text">
-          <strong>بعد رفع الكود</strong>
-          وصّل الفون بـWiFi: <code>GuitarPedal</code> | Password: <code>guitar1234</code> | افتح المتصفح: <code>http://192.168.4.1</code>
-        </div>
-      </div>
-    </div>
-
-    <div class="code-block">
-      <div class="code-header">
-        <div class="code-dots">
-          <div class="code-dot" style="background:#ff5f56"></div>
-          <div class="code-dot" style="background:#ffbd2e"></div>
-          <div class="code-dot" style="background:#27c93f"></div>
-        </div>
-        <div class="code-title">esp32_pedal_firmware.ino — Key sections preview</div>
-      </div>
-      <div class="code-body">
-<span class="cmt">// ═══════════════════════════════════════════</span>
-<span class="cmt">// WiFi Config — غيّر هنا</span>
-<span class="cmt">// ═══════════════════════════════════════════</span>
-<span class="kw">const char*</span> AP_SSID     = <span class="str">"GuitarPedal"</span>;
-<span class="kw">const char*</span> AP_PASSWORD = <span class="str">"guitar1234"</span>;
-<span class="cmt">// ← Phone connects directly, no internet needed</span>
-
-<span class="cmt">// ═══════════════════════════════════════════</span>
-<span class="cmt">// Pin Definitions</span>
-<span class="cmt">// ═══════════════════════════════════════════</span>
-<span class="kw">#define</span> ADC_PIN     <span class="num">34</span>   <span class="cmt">// Guitar Signal IN</span>
-<span class="kw">#define</span> I2S_BCK_PIN <span class="num">26</span>   <span class="cmt">// PCM5102 Bit Clock</span>
-<span class="kw">#define</span> I2S_LRC_PIN <span class="num">25</span>   <span class="cmt">// PCM5102 LR Clock</span>
-<span class="kw">#define</span> I2S_DATA_PIN <span class="num">22</span>  <span class="cmt">// PCM5102 Data</span>
-<span class="kw">#define</span> BTN_NEXT    <span class="num">18</span>   <span class="cmt">// Next Effect</span>
-<span class="kw">#define</span> BTN_PREV    <span class="num">19</span>   <span class="cmt">// Prev Effect</span>
-<span class="kw">#define</span> BTN_BYPASS  <span class="num">5</span>    <span class="cmt">// True Bypass</span>
-
-<span class="cmt">// ═══════════════════════════════════════════</span>
-<span class="cmt">// Chorus Effect (example)</span>
-<span class="cmt">// ═══════════════════════════════════════════</span>
-<span class="type">float</span> <span class="fn">applyChorus</span>(<span class="type">float</span> in) {
-  chorusPhase += params.chorusRate / SAMPLE_RATE;
-  <span class="kw">if</span> (chorusPhase >= <span class="num">1.0</span>) chorusPhase -= <span class="num">1.0</span>;
-  <span class="type">float</span> lfo = sin(chorusPhase * <span class="num">2.0</span> * PI);
-  <span class="type">int</span> delaySamples = (<span class="type">int</span>)((<span class="num">1.0</span> + params.chorusDepth * lfo)
-                       * <span class="num">20.0</span> * SAMPLE_RATE / <span class="num">1000.0</span>);
-  <span class="type">int</span> readIdx = ((delayIdx - delaySamples) + DELAY_BUF_SIZE)
-                % DELAY_BUF_SIZE;
-  delayBuf[delayIdx] = in;
-  delayIdx = (delayIdx + <span class="num">1</span>) % DELAY_BUF_SIZE;
-  <span class="kw">return</span> in * (<span class="num">1.0</span> - params.chorusMix) + delayBuf[readIdx] * params.chorusMix;
-}
-
-<span class="cmt">// ═══════════════════════════════════════════</span>
-<span class="cmt">// Audio Task — runs on Core 0 (real-time)</span>
-<span class="cmt">// ═══════════════════════════════════════════</span>
-<span class="kw">void</span> <span class="fn">audioTask</span>(<span class="kw">void*</span> pvParameters) {
-  <span class="kw">while</span> (<span class="kw">true</span>) {
-    <span class="type">int</span> raw = analogRead(ADC_PIN);
-    <span class="type">float</span> sample = ((<span class="type">float</span>)raw / <span class="num">2047.5f</span>) - <span class="num">1.0f</span>; <span class="cmt">// → -1.0 to +1.0</span>
-    <span class="type">float</span> processed = <span class="fn">processAudio</span>(sample);
-    <span class="type">int32_t</span> dacVal = (<span class="type">int32_t</span>)(processed * <span class="num">0x7FFFFFFF</span>);
-    <span class="type">int32_t</span> stereo[<span class="num">2</span>] = {dacVal, dacVal};
-    <span class="type">size_t</span> bw;
-    <span class="fn">i2s_write</span>(I2S_NUM_0, stereo, <span class="kw">sizeof</span>(stereo), &bw, portMAX_DELAY);
-  }
-}
-
-<span class="cmt">// ═══════════════════════════════════════════</span>
-<span class="cmt">// Web Server — Core 1 handles HTTP</span>
-<span class="cmt">// ═══════════════════════════════════════════</span>
-<span class="kw">void</span> <span class="fn">loop</span>() {
-  server.<span class="fn">handleClient</span>();  <span class="cmt">// Handle phone requests</span>
-  <span class="cmt">// Physical buttons checked here too</span>
-  <span class="kw">if</span> (!digitalRead(BTN_NEXT)) {
-    params.activeEffect = (params.activeEffect + <span class="num">1</span>) % FX_COUNT;
-  }
-}
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ═══════════ SETUP STEPS ═══════════ -->
 <section class="section z1" style="background:rgba(255,255,255,.01)">
@@ -1781,7 +1682,7 @@ nav-pills { display: flex; gap: 6px; }
     <div style="font-size:2rem;margin-bottom:12px">🎸</div>
     <p style="color:var(--muted);font-size:.85rem;margin-bottom:8px">ESP32 Multi-Effect Guitar Pedal — DIY Open Source Project</p>
     <p style="font-family:var(--mono);font-size:.7rem;color:#2a2a4a">
-      WiFi · 19 Effects · 44.1kHz · Breadboard · Arduino IDE · No App Required
+      by kiraii
     </p>
   </div>
 </footer>
