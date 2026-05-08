@@ -1208,6 +1208,7 @@ const state = {
   bypass: false,
   masterVolume: 0.8,
   pollTimer: null,
+  demoInterval: null,  // ← ADD THIS LINE
   looping: false,
   recording: false,
   loopLen: 0,
@@ -1675,18 +1676,50 @@ async function connectToPedal() {
   }
 }
 
+<!-- Replace the startDemo and startDemoSimulation functions in the script section -->
+
 function startDemo() {
-  // Clear any existing demo interval
-  if (state.demoInterval) clearInterval(state.demoInterval);
-  
   state.demoMode = true;
   state.connected = true;
+  
+  // Clear any existing demo interval
+  if (state.demoInterval) {
+    clearInterval(state.demoInterval);
+    state.demoInterval = null;
+  }
+  
   setConnState('connected', 'Demo Mode');
   hideConnectOverlay();
-  startDemoSimulation();
   showToast('Demo mode — no hardware required');
+  startDemoSimulation();
 }
 
+// ═══════════════════════════════════════════
+//  DEMO SIMULATION
+// ═══════════════════════════════════════════
+function startDemoSimulation() {
+  let t = 0;
+  
+  // Fake tuner oscillation
+  state.demoInterval = setInterval(() => {
+    t += 0.05;
+    
+    // Simulate string being played (A2 = 110 Hz as base)
+    const baseFreq = 110; // A2
+    const jitter = Math.sin(t * 0.7) * 2 + Math.sin(t * 2.3) * 0.5;
+    const displayFreq = Math.max(0, baseFreq + jitter);
+    
+    updateTuner(displayFreq);
+    
+    // Fake signal meter - smooth animation
+    const level = 0.3 + Math.sin(t * 1.2) * 0.2 + Math.random() * 0.1;
+    updateMeter(Math.max(0, Math.min(1, level)));
+    
+    // Update status effect name
+    document.getElementById('statusEffect').textContent = effects[state.activeEffect]?.name || 'Bypass';
+    
+  }, 100);
+}
 function setConnState(s, label) {
   const badge = document.getElementById('connBadge');
   const lbl   = document.getElementById('connLabel');
