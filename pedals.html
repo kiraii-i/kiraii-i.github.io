@@ -282,6 +282,9 @@ body::before {
 }
 
 .demo-link {
+  background:none;
+  border:none;
+  width:100%;
   display: block;
   text-align: center;
   margin-top: 12px;
@@ -939,7 +942,9 @@ body::before {
 
     <button class="btn-connect" onclick="connectToPedal()">Connect to Pedal</button>
 
-    <a class="demo-link" onclick="startDemo()">↳ No hardware? Try Demo Mode</a>
+<button type="button" class="demo-link" onclick="startDemo()">
+  ↳ No hardware? Try Demo Mode
+</button>
 
     <div class="connect-hint">
       <div>1. Connect phone WiFi to <code>GuitarPedal</code></div>
@@ -1677,10 +1682,23 @@ async function connectToPedal() {
 function startDemo() {
   state.demoMode = true;
   state.connected = true;
+
+  if (state.pollTimer) {
+    clearInterval(state.pollTimer);
+  }
+
   setConnState('connected', 'Demo Mode');
-  hideConnectOverlay();
+
+  const overlay = document.getElementById('connectOverlay');
+  overlay.classList.add('hidden');
+
+  document.getElementById('statusText').textContent = 'Live · Demo';
+  document.getElementById('statusEffect').textContent =
+    effects[state.activeEffect]?.name || 'Bypass';
+
   startDemoSimulation();
-  showToast('Demo mode — no hardware required');
+
+  showToast('✓ Demo mode started');
 }
 
 function setConnState(s, label) {
