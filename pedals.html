@@ -939,8 +939,10 @@ body::before {
 
     <button class="btn-connect" onclick="connectToPedal()">Connect to Pedal</button>
 
-    <a class="demo-link" onclick="startDemo()">↳ No hardware? Try Demo Mode</a>
-
+<button type="button" class="demo-link" id="demoBtn">
+↳ No hardware? Try Demo Mode
+</button>
+     
     <div class="connect-hint">
       <div>1. Connect phone WiFi to <code>GuitarPedal</code></div>
       <div>2. Password: <code>guitar1234</code></div>
@@ -1831,6 +1833,33 @@ function init() {
 
 // Run
 init();
+document.getElementById('demoBtn').addEventListener('click', function () {
+
+    state.demoMode = true;
+    state.connected = true;
+
+    const overlay = document.getElementById('connectOverlay');
+
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
+
+    if (typeof setConnState === 'function') {
+        setConnState('connected', 'Demo Mode');
+    }
+
+    if (typeof startDemoSimulation === 'function') {
+        startDemoSimulation();
+    }
+
+    const statusText = document.getElementById('statusText');
+
+    if (statusText) {
+        statusText.textContent = 'Live · Demo';
+    }
+
+    alert('Demo Mode Started');
+});
 </script>
 </body>
 </html>
