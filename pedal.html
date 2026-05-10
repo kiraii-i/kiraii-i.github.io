@@ -286,13 +286,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     </div>
     <div class="input-group">
       <label>WiFi Network</label>
-      <input type="text" id="ssidInput" value="GuitarPedal" readonly style="color:var(--muted)">
+      <input type="text" id="ssidInput" value="K-Pedal" readonly style="color:var(--muted)">
     </div>
     <button class="btn-connect" onclick="connectToPedal()">Connect to Pedal</button>
     <button class="demo-link" onclick="startDemo()">No hardware? Try Demo Mode</button>
     <div class="connect-hint">
-      <div>1. Connect WiFi to <code>GuitarPedal</code></div>
-      <div>2. Password: <code>guitar1234</code></div>
+      <div>1. Connect WiFi to <code>K-Pedal</code></div>
+      <div>2. Password: <code>lolo2008</code></div>
       <div>3. IP: <code>192.168.4.1</code></div>
     </div>
   </div>
@@ -1124,7 +1124,7 @@ async function connectToPedal(){
     state.connected=true; state.demoMode=false;
     setConnState('connected'); hideConnectOverlay();
     applyStatusData(data); startPolling();
-    showToast('Connected to GuitarPedal v2');
+    showToast('Connected to K-Pedal');
   } catch(e){
     setConnState('disconnected');
     showToast('Connection failed — check IP and WiFi');
@@ -1136,7 +1136,7 @@ function startDemo(){
   setConnState('connected','Demo Mode');
   hideConnectOverlay();
   startDemoSimulation();
-  showToast('Demo mode — no hardware required');
+  showToast('demo mode — no hardware required');
 }
 
 function setConnState(s,label){
