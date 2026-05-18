@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本語 — تعلم اليابانية</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--red:#c0392b;--ink:#12111a;--paper:#f7f4ee;--mist:#e0dbd0;--soft:#edeae2;--blue:#1e5f8a;--green:#1e7a5a;--purple:#6b3fa0;--shadow:rgba(18,17,26,0.13);}
+[data-theme="dark"]{--ink:#e8e4d9;--paper:#141218;--mist:#2a2730;--soft:#1f1d27;--shadow:rgba(0,0,0,0.45);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Cairo','Noto Sans JP',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;transition:background .3s,color .3s;}
+header{background:var(--ink);color:#f7f4ee;padding:0 1.8rem;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:0 2px 24px rgba(0,0,0,.35);}
+.logo{display:flex;align-items:center;gap:12px;cursor:pointer;color:inherit;}
+.logo-jp{font-family:'Noto Sans JP',sans-serif;font-size:1.7rem;font-weight:900;color:#e84040;letter-spacing:-2px;}
+.logo-sub{font-size:.82rem;opacity:.55;font-weight:600;}
+.header-right{display:flex;align-items:center;gap:10px;}
+.streak-pill{background:linear-gradient(135deg,#e67e22,#f1c40f);color:#fff;padding:5px 13px;border-radius:20px;font-size:.78rem;font-weight:800;display:flex;align-items:center;gap:5px;}
+.icon-btn{background:rgba(255,255,255,.1);border:none;color:#f7f4ee;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.icon-btn:hover{background:rgba(255,255,255,.2);}
+.view{display:none;animation:fadeUp .35s ease;}
+.view.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+/* HOME */
+.home-hero{background:linear-gradient(150deg,#12111a 0%,#1e1230 55%,#2a1010 100%);color:#f7f4ee;padding:64px 2rem 50px;text-align:center;position:relative;overflow:hidden;}
+.home-hero::before{content:'日本語';position:absolute;font-family:'Noto Sans JP',sans-serif;font-size:14rem;font-weight:900;color:rgba(255,255,255,.025);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;}
+.hero-badge{display:inline-block;background:rgba(232,64,64,.2);border:1px solid rgba(232,64,64,.4);color:#e84040;padding:5px 18px;border-radius:20px;font-size:.78rem;font-weight:700;margin-bottom:18px;}
+.home-hero h1{font-size:2.5rem;font-weight:900;line-height:1.2;margin-bottom:10px;}
+.home-hero h1 em{color:#e84040;font-style:normal;}
+.home-hero p{opacity:.6;max-width:480px;margin:0 auto 0;font-size:.95rem;line-height:1.7;}
+.stats-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;padding:24px 2rem;border-bottom:1px solid var(--mist);}
+.stat-box{background:var(--soft);border-radius:14px;padding:16px 24px;text-align:center;min-width:110px;}
+.stat-num{font-size:1.7rem;font-weight:900;color:var(--red);}
+.stat-label{font-size:.72rem;opacity:.5;margin-top:2px;}
+.levels-section{padding:38px 2rem 60px;max-width:1050px;margin:0 auto;}
+.levels-section h2{font-size:1.1rem;font-weight:800;margin-bottom:22px;opacity:.55;text-align:center;}
+.levels-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px;}
+.level-card{background:var(--soft);border-radius:20px;padding:26px 16px 20px;text-align:center;cursor:pointer;transition:transform .25s,box-shadow .25s;border:2px solid var(--mist);}
+.level-card:hover{transform:translateY(-7px);box-shadow:0 18px 44px var(--shadow);}
+.lc-n5{border-color:#27ae60;}.lc-n4{border-color:#2980b9;}.lc-n3{border-color:#8e44ad;}.lc-n2{border-color:#e67e22;}.lc-n1{border-color:#c0392b;}.lc-kana{border-color:#16a085;}
+.level-jp{font-family:'Noto Sans JP',sans-serif;font-size:2.3rem;font-weight:900;line-height:1;margin-bottom:5px;}
+.level-name{font-size:1.1rem;font-weight:800;margin-bottom:3px;}
+.level-desc{font-size:.73rem;opacity:.5;margin-bottom:13px;}
+.progress-wrap{background:var(--mist);border-radius:99px;height:6px;overflow:hidden;}
+.progress-bar{height:100%;border-radius:99px;transition:width .6s ease;}
+.pb-n5{background:linear-gradient(90deg,#27ae60,#2ecc71);}.pb-n4{background:linear-gradient(90deg,#2980b9,#3498db);}.pb-n3{background:linear-gradient(90deg,#8e44ad,#9b59b6);}.pb-n2{background:linear-gradient(90deg,#e67e22,#f39c12);}.pb-n1{background:linear-gradient(90deg,#c0392b,#e74c3c);}.pb-kana{background:linear-gradient(90deg,#16a085,#1abc9c);}
+.progress-text{font-size:.67rem;opacity:.42;margin-top:5px;}
+/* LEVEL */
+.level-header{padding:26px 2rem 18px;background:var(--soft);border-bottom:1px solid var(--mist);}
+.back-btn{background:none;border:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.88rem;color:var(--blue);display:inline-flex;align-items:center;gap:6px;margin-bottom:12px;padding:0;font-weight:700;}
+.back-btn:hover{text-decoration:underline;}
+.lh-title{font-size:1.8rem;font-weight:900;}
+.lh-sub{opacity:.5;margin-top:3px;font-size:.86rem;}
+.tabs-bar{display:flex;gap:4px;padding:0 2rem;border-bottom:2px solid var(--mist);background:var(--paper);overflow-x:auto;scrollbar-width:none;}
+.tabs-bar::-webkit-scrollbar{display:none;}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.86rem;font-weight:700;color:var(--ink);opacity:.4;padding:12px 16px;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:opacity .2s,border-color .2s;}
+.tab-btn.active{opacity:1;border-color:var(--red);}
+.tab-btn:hover{opacity:.75;}
+.tab-pane{display:none;padding:30px 2rem;max-width:1050px;margin:0 auto;}
+.tab-pane.active{display:block;animation:fadeUp .3s ease;}
+.section-head{font-size:1.1rem;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+/* VOCAB */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:28px;}
+.vocab-card{background:var(--soft);border-radius:14px;padding:15px 13px;text-align:center;border:1px solid var(--mist);transition:transform .2s,box-shadow .2s;position:relative;}
+.vocab-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px var(--shadow);}
+.vc-jp{font-family:'Noto Sans JP',sans-serif;font-size:1.4rem;font-weight:700;color:var(--red);}
+.vc-read{font-family:'Noto Sans JP',sans-serif;font-size:.7rem;opacity:.43;margin:3px 0;}
+.vc-ar{font-size:.85rem;font-weight:700;margin-top:5px;}
+.vc-type{font-size:.63rem;background:var(--mist);padding:2px 8px;border-radius:99px;display:inline-block;margin-top:5px;opacity:.6;}
+.speak-btn{position:absolute;top:7px;left:7px;background:none;border:none;cursor:pointer;font-size:.88rem;opacity:.3;transition:opacity .2s;padding:2px;}
+.speak-btn:hover{opacity:1;}
+/* KANJI */
+.kanji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;}
+.kanji-card{background:var(--soft);border-radius:16px;padding:20px 15px;border:1px solid var(--mist);transition:transform .2s,box-shadow .2s;}
+.kanji-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px var(--shadow);}
+.kj-char{font-family:'Noto Sans JP',sans-serif;font-size:2.8rem;font-weight:900;text-align:center;margin-bottom:10px;line-height:1;cursor:pointer;}
+.kj-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px;}
+.kj-tag{font-size:.67rem;padding:2px 8px;border-radius:99px;font-family:'Noto Sans JP',sans-serif;}
+.kun{background:rgba(30,95,138,.13);color:var(--blue);}.on{background:rgba(192,57,43,.13);color:var(--red);}
+.kj-meaning{font-size:.85rem;font-weight:700;opacity:.8;}
+.kj-strokes{font-size:.68rem;opacity:.36;margin-top:3px;}
+/* GRAMMAR */
+.grammar-list{display:flex;flex-direction:column;gap:17px;}
+.grammar-card{background:var(--soft);border-radius:16px;padding:20px 18px;border:1px solid var(--mist);border-right:4px solid var(--purple);}
+.gc-title{font-size:1rem;font-weight:800;display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:13px;}
+.gc-jp{font-family:'Noto Sans JP',sans-serif;color:var(--red);}
+.gc-tag{font-size:.6rem;padding:2px 9px;border-radius:99px;background:var(--purple);color:#fff;font-weight:700;}
+.gc-label{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:.38;margin-bottom:4px;}
+.gc-section{margin-top:11px;}
+.gc-text{font-size:.87rem;line-height:1.75;}
+.gc-formula{font-family:monospace;background:var(--mist);padding:8px 13px;border-radius:8px;font-size:.87rem;margin-top:4px;direction:ltr;text-align:left;color:var(--blue);}
+.gc-example{background:var(--paper);border-radius:10px;padding:11px 14px;margin-top:6px;border:1px solid var(--mist);}
+.gc-ex-jp{font-family:'Noto Sans JP',sans-serif;font-size:.96rem;color:var(--red);margin-bottom:3px;}
+.gc-ex-read{font-family:'Noto Sans JP',sans-serif;font-size:.7rem;opacity:.4;}
+.gc-ex-ar{font-size:.83rem;margin-top:4px;}
+/* KANA */
+.kana-section-title{font-size:.98rem;font-weight:800;margin:20px 0 11px;display:flex;align-items:center;gap:7px;}
+.kana-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px;margin-bottom:8px;}
+.kana-cell{background:var(--soft);border-radius:12px;padding:11px 5px;text-align:center;border:1px solid var(--mist);cursor:pointer;transition:transform .18s,box-shadow .18s;}
+.kana-cell:hover{transform:scale(1.08);box-shadow:0 6px 20px var(--shadow);}
+.kana-ch{font-family:'Noto Sans JP',sans-serif;font-size:1.6rem;font-weight:700;}
+.kana-ro{font-size:.66rem;opacity:.43;margin-top:2px;font-family:monospace;}
+.kana-empty{background:transparent;border-color:transparent;pointer-events:none;}
+/* FLASHCARDS */
+.fc-area{max-width:450px;margin:0 auto;text-align:center;}
+.fc-counter{font-size:.8rem;opacity:.43;margin-bottom:16px;}
+.flashcard{width:100%;height:235px;perspective:1200px;cursor:pointer;margin-bottom:20px;}
+.fc-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1);}
+.flashcard.flipped .fc-inner{transform:rotateY(180deg);}
+.fc-front,.fc-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;box-shadow:0 12px 40px var(--shadow);}
+.fc-front{background:linear-gradient(140deg,#12111a,#2d1f4e);color:#f7f4ee;}
+.fc-back{background:linear-gradient(140deg,#f7f4ee,#e8e3d8);color:var(--ink);transform:rotateY(180deg);}
+.fc-jp{font-family:'Noto Sans JP',sans-serif;font-size:2.9rem;font-weight:900;color:#e84040;}
+.fc-read{font-family:'Noto Sans JP',sans-serif;font-size:.86rem;opacity:.38;margin-top:7px;}
+.fc-hint{font-size:.7rem;opacity:.28;margin-top:16px;}
+.fc-ans{font-size:1.45rem;font-weight:800;}
+.fc-ans-read{font-family:'Noto Sans JP',sans-serif;font-size:.8rem;opacity:.43;margin-top:5px;}
+.fc-btns{display:flex;gap:11px;justify-content:center;margin-top:4px;}
+.fc-btn{border:none;padding:11px 26px;border-radius:12px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.86rem;font-weight:700;transition:transform .15s,box-shadow .15s;}
+.fc-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px var(--shadow);}
+.fc-knew{background:linear-gradient(135deg,#27ae60,#2ecc71);color:#fff;}
+.fc-forgot{background:var(--mist);color:var(--ink);}
+.fc-nav{display:flex;gap:9px;justify-content:center;margin-top:13px;}
+.fc-nav-btn{background:var(--soft);border:1px solid var(--mist);padding:8px 20px;border-radius:10px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.8rem;font-weight:700;color:var(--ink);transition:background .2s;}
+.fc-nav-btn:hover{background:var(--mist);}
+.fc-score{margin-top:18px;display:flex;gap:14px;justify-content:center;}
+.fc-score-box{background:var(--soft);border-radius:12px;padding:11px 18px;text-align:center;}
+.fc-score-num{font-size:1.45rem;font-weight:900;}
+.fc-score-label{font-size:.68rem;opacity:.43;margin-top:2px;}
+/* QUIZ */
+.quiz-wrap{max-width:540px;margin:0 auto;}
+.quiz-jp{font-family:'Noto Sans JP',sans-serif;font-size:2.4rem;font-weight:900;color:var(--red);text-align:center;margin-bottom:7px;}
+.quiz-q{font-size:1rem;font-weight:800;text-align:center;margin-bottom:22px;opacity:.65;}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:18px;}
+.quiz-opt{background:var(--soft);border:2px solid var(--mist);border-radius:14px;padding:13px 16px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:700;color:var(--ink);transition:all .2s;text-align:center;}
+.quiz-opt:hover{border-color:var(--blue);background:rgba(30,95,138,.06);}
+.quiz-opt.correct{border-color:#27ae60;background:rgba(39,174,96,.12);color:#1a7a3c;}
+.quiz-opt.wrong{border-color:var(--red);background:rgba(192,57,43,.1);color:var(--red);}
+.quiz-opt:disabled{cursor:default;}
+.quiz-feedback{text-align:center;padding:13px;border-radius:12px;font-weight:700;margin-bottom:14px;font-size:.9rem;}
+.quiz-feedback.ok{background:rgba(39,174,96,.12);color:#1a7a3c;}
+.quiz-feedback.no{background:rgba(192,57,43,.1);color:var(--red);}
+.quiz-next{display:block;margin:0 auto;background:var(--ink);color:var(--paper);border:none;padding:11px 34px;border-radius:12px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:800;transition:opacity .2s;}
+.quiz-next:hover{opacity:.8;}
+.quiz-progress-bar{height:5px;background:var(--mist);border-radius:99px;overflow:hidden;margin-bottom:26px;}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--red),#e67e22);border-radius:99px;transition:width .4s ease;}
+.quiz-result{text-align:center;padding:28px 18px;}
+.quiz-result-score{font-size:3.3rem;font-weight:900;color:var(--red);}
+.quiz-result-msg{font-size:1.05rem;margin:8px 0 22px;opacity:.65;}
+.btn-primary{background:linear-gradient(135deg,var(--red),#e74c3c);color:#fff;border:none;padding:12px 26px;border-radius:12px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:800;transition:transform .18s,box-shadow .18s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(192,57,43,.35);}
+.toast{position:fixed;bottom:22px;right:22px;background:var(--ink);color:var(--paper);padding:11px 18px;border-radius:12px;font-size:.83rem;font-weight:700;z-index:999;transform:translateY(80px);opacity:0;transition:all .33s ease;max-width:220px;}
+.toast.show{transform:translateY(0);opacity:1;}
+@media(max-width:600px){
+  .home-hero h1{font-size:1.85rem;}
+  .levels-grid{grid-template-columns:repeat(2,1fr);}
+  .vocab-grid{grid-template-columns:repeat(2,1fr);}
+  .kanji-grid{grid-template-columns:repeat(2,1fr);}
+  .quiz-options{grid-template-columns:1fr;}
+  .tab-pane{padding:20px 1rem;}
+  .tabs-bar{padding:0 1rem;}
+  header{padding:0 1rem;}
+  .stats-row{gap:10px;padding:18px 1rem;}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo" onclick="showView('home')">
+    <span class="logo-jp">日本語</span>
+    <span class="logo-sub">تعلم اليابانية</span>
+  </div>
+  <div class="header-right">
+    <div class="streak-pill">🔥 <span id="streakCount">0</span> يوم</div>
+    <button class="icon-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+  </div>
+</header>
+<div class="toast" id="toast"></div>
+
+<!-- HOME -->
+<div class="view active" id="view-home">
+  <div class="home-hero">
+    <div class="hero-badge">🇯🇵 JLPT N5 → N1</div>
+    <h1>تعلّم <em>اليابانية</em><br>من الصفر للاحتراف</h1>
+    <p>كلمات، كانجي، قواعد، هيراغانا وكاتاكانا — كل شيء في مكان واحد مع تتبع تقدمك يومياً</p>
+  </div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num" id="totalWords">0</div><div class="stat-label">كلمة تعلمتها</div></div>
+    <div class="stat-box"><div class="stat-num" id="totalKanji">0</div><div class="stat-label">كانجي تعلمته</div></div>
+    <div class="stat-box"><div class="stat-num" id="streakStat">0</div><div class="stat-label">🔥 سلسلة الأيام</div></div>
+    <div class="stat-box"><div class="stat-num" id="totalPct">0%</div><div class="stat-label">تقدم عام</div></div>
+  </div>
+  <div class="levels-section">
+    <h2>اختر مستواك</h2>
+    <div class="levels-grid">
+      <div class="level-card lc-kana" onclick="openLevel('kana')">
+        <div class="level-jp" style="color:#16a085;font-size:1.9rem;">あ ア</div>
+        <div class="level-name">هيراغانا وكاتاكانا</div>
+        <div class="level-desc">أساس كل شيء</div>
+        <div class="progress-wrap"><div class="progress-bar pb-kana" id="prog-kana" style="width:0%"></div></div>
+        <div class="progress-text" id="ptxt-kana">لم تبدأ بعد</div>
+      </div>
+      <div class="level-card lc-n5" onclick="openLevel('N5')">
+        <div class="level-jp" style="color:#27ae60;">N5</div>
+        <div class="level-name">مبتدئ</div>
+        <div class="level-desc">800 كلمة · 100 كانجي</div>
+        <div class="progress-wrap"><div class="progress-bar pb-n5" id="prog-N5" style="width:0%"></div></div>
+        <div class="progress-text" id="ptxt-N5">لم تبدأ بعد</div>
+      </div>
+      <div class="level-card lc-n4" onclick="openLevel('N4')">
+        <div class="level-jp" style="color:#2980b9;">N4</div>
+        <div class="level-name">أساسي</div>
+        <div class="level-desc">1500 كلمة · 300 كانجي</div>
+        <div class="progress-wrap"><div class="progress-bar pb-n4" id="prog-N4" style="width:0%"></div></div>
+        <div class="progress-text" id="ptxt-N4">لم تبدأ بعد</div>
+      </div>
+      <div class="level-card lc-n3" onclick="openLevel('N3')">
+        <div class="level-jp" style="color:#8e44ad;">N3</div>
+        <div class="level-name">متوسط</div>
+        <div class="level-desc">3000 كلمة · 650 كانجي</div>
+        <div class="progress-wrap"><div class="progress-bar pb-n3" id="prog-N3" style="width:0%"></div></div>
+        <div class="progress-text" id="ptxt-N3">لم تبدأ بعد</div>
+      </div>
+      <div class="level-card lc-n2" onclick="openLevel('N2')">
+        <div class="level-jp" style="color:#e67e22;">N2</div>
+        <div class="level-name">متقدم</div>
+        <div class="level-desc">6000 كلمة · 1000 كانجي</div>
+        <div class="progress-wrap"><div class="progress-bar pb-n2" id="prog-N2" style="width:0%"></div></div>
+        <div class="progress-text" id="ptxt-N2">لم تبدأ بعد</div>
+      </div>
+      <div class="level-card lc-n1" onclick="openLevel('N1')">
+        <div class="level-jp" style="color:#c0392b;">N1</div>
+        <div class="level-name">متقن</div>
+        <div class="level-desc">10000 كلمة · 2000 كانجي</div>
+        <div class="progress-wrap"><div class="progress-bar pb-n1" id="prog-N1" style="width:0%"></div></div>
+        <div class="progress-text" id="ptxt-N1">لم تبدأ بعد</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEVEL VIEW -->
+<div class="view" id="view-level">
+  <div class="level-header">
+    <button class="back-btn" onclick="showView('home')">← الرئيسية</button>
+    <div class="lh-title" id="lh-title">N5</div>
+    <div class="lh-sub" id="lh-sub">مبتدئ</div>
+  </div>
+  <div class="tabs-bar" id="levelTabs">
+    <button class="tab-btn active" onclick="switchTab('vocab',0)">📚 الكلمات</button>
+    <button class="tab-btn" onclick="switchTab('kanji',1)">漢 الكانجي</button>
+    <button class="tab-btn" onclick="switchTab('grammar',2)">📝 القواعد</button>
+    <button class="tab-btn" onclick="switchTab('flashcards',3)">🃏 بطاقات</button>
+    <button class="tab-btn" onclick="switchTab('quiz',4)">✏️ اختبار</button>
+  </div>
+  <div class="tab-pane active" id="tab-vocab">
+    <div class="section-head">📚 كلمات المستوى</div>
+    <div class="vocab-grid" id="vocab-grid"></div>
+  </div>
+  <div class="tab-pane" id="tab-kanji">
+    <div class="section-head">漢 كانجي المستوى</div>
+    <div class="kanji-grid" id="kanji-grid"></div>
+  </div>
+  <div class="tab-pane" id="tab-grammar">
+    <div class="section-head">📝 قواعد المستوى</div>
+    <div class="grammar-list" id="grammar-list"></div>
+  </div>
+  <div class="tab-pane" id="tab-flashcards">
+    <div class="fc-area">
+      <div class="fc-counter" id="fc-counter">البطاقة 1 من 20</div>
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <div class="fc-inner" id="fc-inner">
+          <div class="fc-front">
+            <div class="fc-jp" id="fc-jp">--</div>
+            <div class="fc-read" id="fc-read">--</div>
+            <div class="fc-hint">اضغط لرؤية الإجابة 👆</div>
+          </div>
+          <div class="fc-back">
+            <div class="fc-ans" id="fc-ans">--</div>
+            <div class="fc-ans-read" id="fc-ans-read">--</div>
+          </div>
+        </div>
+      </div>
+      <div class="fc-btns" id="fc-btns" style="display:none">
+        <button class="fc-btn fc-forgot" onclick="fcAnswer(false)">❌ لم أعرفها</button>
+        <button class="fc-btn fc-knew" onclick="fcAnswer(true)">✅ عرفتها</button>
+      </div>
+      <div class="fc-nav">
+        <button class="fc-nav-btn" onclick="fcPrev()">‹ السابقة</button>
+        <button class="fc-nav-btn" onclick="fcNext()">التالية ›</button>
+      </div>
+      <div class="fc-score">
+        <div class="fc-score-box"><div class="fc-score-num" id="fc-knew-count">0</div><div class="fc-score-label">عرفتها ✅</div></div>
+        <div class="fc-score-box"><div class="fc-score-num" id="fc-forgot-count">0</div><div class="fc-score-label">لم أعرفها ❌</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="tab-quiz">
+    <div class="quiz-wrap" id="quiz-wrap"></div>
+  </div>
+</div>
+
+<!-- KANA VIEW -->
+<div class="view" id="view-kana">
+  <div class="level-header">
+    <button class="back-btn" onclick="showView('home')">← الرئيسية</button>
+    <div class="lh-title">هيراغانا وكاتاكانا</div>
+    <div class="lh-sub">أساس القراءة والكتابة اليابانية — اضغط على أي حرف لسماع نطقه 🔊</div>
+  </div>
+  <div class="tabs-bar">
+    <button class="tab-btn active" onclick="switchKanaTab('hiragana',0)">あ هيراغانا</button>
+    <button class="tab-btn" onclick="switchKanaTab('katakana',1)">ア كاتاكانا</button>
+  </div>
+  <div class="tab-pane active" id="tab-hiragana" style="max-width:860px;margin:0 auto;">
+    <div class="kana-section-title">⬜ أساسي (Gojuuon)</div>
+    <div class="kana-grid" id="hira-basic"></div>
+    <div class="kana-section-title" style="margin-top:22px;">◻ مركّب (Dakuten + Handakuten)</div>
+    <div class="kana-grid" id="hira-daku"></div>
+    <div class="kana-section-title" style="margin-top:22px;">▫ مقطعي (Yōon)</div>
+    <div class="kana-grid" id="hira-yoon" style="grid-template-columns:repeat(auto-fill,minmax(88px,1fr));"></div>
+  </div>
+  <div class="tab-pane" id="tab-katakana" style="max-width:860px;margin:0 auto;">
+    <div class="kana-section-title">⬜ أساسي (Gojuuon)</div>
+    <div class="kana-grid" id="kata-basic"></div>
+    <div class="kana-section-title" style="margin-top:22px;">◻ مركّب (Dakuten + Handakuten)</div>
+    <div class="kana-grid" id="kata-daku"></div>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+const DATA = {
+  N5:{
+    title:'N5 — مبتدئ',sub:'أساسيات اللغة اليابانية',
+    vocab:[
+      {jp:'私',read:'わたし',ar:'أنا',type:'ضمير'},
+      {jp:'あなた',read:'あなた',ar:'أنت / أنتِ',type:'ضمير'},
+      {jp:'彼',read:'かれ',ar:'هو',type:'ضمير'},
+      {jp:'彼女',read:'かのじょ',ar:'هي',type:'ضمير'},
+      {jp:'先生',read:'せんせい',ar:'معلم / أستاذ',type:'اسم'},
+      {jp:'学生',read:'がくせい',ar:'طالب',type:'اسم'},
+      {jp:'学校',read:'がっこう',ar:'مدرسة',type:'اسم'},
+      {jp:'本',read:'ほん',ar:'كتاب',type:'اسم'},
+      {jp:'水',read:'みず',ar:'ماء',type:'اسم'},
+      {jp:'食べる',read:'たべる',ar:'يأكل',type:'فعل'},
+      {jp:'飲む',read:'のむ',ar:'يشرب',type:'فعل'},
+      {jp:'行く',read:'いく',ar:'يذهب',type:'فعل'},
+      {jp:'来る',read:'くる',ar:'يأتي',type:'فعل'},
+      {jp:'見る',read:'みる',ar:'يرى / يشاهد',type:'فعل'},
+      {jp:'する',read:'する',ar:'يفعل',type:'فعل'},
+      {jp:'大きい',read:'おおきい',ar:'كبير',type:'صفة'},
+      {jp:'小さい',read:'ちいさい',ar:'صغير',type:'صفة'},
+      {jp:'新しい',read:'あたらしい',ar:'جديد',type:'صفة'},
+      {jp:'古い',read:'ふるい',ar:'قديم',type:'صفة'},
+      {jp:'いい',read:'いい',ar:'جيد / حسن',type:'صفة'},
+    ],
+    kanji:[
+      {ch:'日',kun:'ひ、か',on:'ニチ、ジツ',meaning:'يوم / شمس',strokes:'4'},
+      {ch:'月',kun:'つき',on:'ゲツ、ガツ',meaning:'قمر / شهر',strokes:'4'},
+      {ch:'火',kun:'ひ',on:'カ',meaning:'نار',strokes:'4'},
+      {ch:'水',kun:'みず',on:'スイ',meaning:'ماء',strokes:'4'},
+      {ch:'木',kun:'き',on:'モク、ボク',meaning:'شجرة',strokes:'4'},
+      {ch:'金',kun:'かね',on:'キン、コン',meaning:'ذهب / مال',strokes:'8'},
+      {ch:'土',kun:'つち',on:'ド、ト',meaning:'تراب / أرض',strokes:'3'},
+      {ch:'山',kun:'やま',on:'サン',meaning:'جبل',strokes:'3'},
+      {ch:'川',kun:'かわ',on:'セン',meaning:'نهر',strokes:'3'},
+      {ch:'人',kun:'ひと',on:'ジン、ニン',meaning:'إنسان / شخص',strokes:'2'},
+      {ch:'口',kun:'くち',on:'コウ、ク',meaning:'فم',strokes:'3'},
+      {ch:'目',kun:'め',on:'モク、ボク',meaning:'عين',strokes:'5'},
+      {ch:'手',kun:'て',on:'シュ',meaning:'يد',strokes:'4'},
+      {ch:'足',kun:'あし',on:'ソク',meaning:'قدم / ساق',strokes:'7'},
+      {ch:'大',kun:'おお',on:'ダイ、タイ',meaning:'كبير',strokes:'3'},
+      {ch:'小',kun:'ちい、こ',on:'ショウ',meaning:'صغير',strokes:'3'},
+      {ch:'上',kun:'うえ',on:'ジョウ',meaning:'فوق',strokes:'3'},
+      {ch:'下',kun:'した',on:'カ、ゲ',meaning:'تحت',strokes:'3'},
+      {ch:'中',kun:'なか',on:'チュウ',meaning:'وسط / داخل',strokes:'4'},
+      {ch:'国',kun:'くに',on:'コク',meaning:'دولة / بلد',strokes:'8'},
+    ],
+    grammar:[
+      {name:'～は～です',jp:'は＋です',tag:'N5',explain:'الجملة الاسمية الأساسية. تُستخدم لتعريف أو وصف شيء.',formula:'[موضوع] は [خبر] です',ex_jp:'私は学生です。',ex_read:'わたしは がくせい です。',ex_ar:'أنا طالب.'},
+      {name:'～じゃないです',jp:'じゃないです',tag:'N5',explain:'نفي الجملة الاسمية. يُستخدم بدلاً من です لنفي الخبر.',formula:'[موضوع] は [خبر] じゃないです',ex_jp:'これは本じゃないです。',ex_read:'これは ほん じゃないです。',ex_ar:'هذا ليس كتاباً.'},
+      {name:'～が好きです',jp:'が好き',tag:'N5',explain:'التعبير عن الإعجاب أو الحب بشيء ما.',formula:'[موضوع] は [شيء] が好きです',ex_jp:'私は寿司が好きです。',ex_read:'わたしは すしが すきです。',ex_ar:'أنا أحب السوشي.'},
+      {name:'～てください',jp:'てください',tag:'N5',explain:'صيغة الطلب المهذب.',formula:'[فعل-صيغة て] ください',ex_jp:'ここに来てください。',ex_read:'ここに きてください。',ex_ar:'من فضلك تعال إلى هنا.'},
+      {name:'～たい',jp:'たい',tag:'N5',explain:'التعبير عن الرغبة في فعل شيء (أريد أن...).',formula:'[جذر الفعل] たい',ex_jp:'日本に行きたいです。',ex_read:'にほんに いきたい です。',ex_ar:'أريد أن أذهب إلى اليابان.'},
+      {name:'～ている',jp:'ている',tag:'N5',explain:'يدل على استمرارية الفعل (المضارع المستمر).',formula:'[فعل-صيغة て] いる',ex_jp:'今、食べています。',ex_read:'いま、たべて います。',ex_ar:'أنا آكل الآن.'},
+    ]
+  },
+  N4:{
+    title:'N4 — أساسي',sub:'توسيع المفردات والقواعد الأساسية',
+    vocab:[
+      {jp:'友達',read:'ともだち',ar:'صديق',type:'اسم'},
+      {jp:'家族',read:'かぞく',ar:'عائلة',type:'اسم'},
+      {jp:'仕事',read:'しごと',ar:'عمل / وظيفة',type:'اسم'},
+      {jp:'電車',read:'でんしゃ',ar:'قطار كهربائي',type:'اسم'},
+      {jp:'駅',read:'えき',ar:'محطة',type:'اسم'},
+      {jp:'病院',read:'びょういん',ar:'مستشفى',type:'اسم'},
+      {jp:'薬',read:'くすり',ar:'دواء',type:'اسم'},
+      {jp:'天気',read:'てんき',ar:'طقس',type:'اسم'},
+      {jp:'旅行',read:'りょこう',ar:'رحلة / سفر',type:'اسم'},
+      {jp:'練習',read:'れんしゅう',ar:'تدريب / ممارسة',type:'اسم'},
+      {jp:'始める',read:'はじめる',ar:'يبدأ',type:'فعل'},
+      {jp:'終わる',read:'おわる',ar:'ينتهي',type:'فعل'},
+      {jp:'教える',read:'おしえる',ar:'يعلّم / يخبر',type:'فعل'},
+      {jp:'覚える',read:'おぼえる',ar:'يتذكر / يحفظ',type:'فعل'},
+      {jp:'忘れる',read:'わすれる',ar:'ينسى',type:'فعل'},
+      {jp:'難しい',read:'むずかしい',ar:'صعب',type:'صفة'},
+      {jp:'簡単',read:'かんたん',ar:'سهل',type:'صفة-な'},
+      {jp:'暖かい',read:'あたたかい',ar:'دافئ',type:'صفة'},
+      {jp:'寒い',read:'さむい',ar:'بارد',type:'صفة'},
+      {jp:'早い',read:'はやい',ar:'مبكر / سريع',type:'صفة'},
+    ],
+    kanji:[
+      {ch:'学',kun:'まな',on:'ガク',meaning:'تعلم',strokes:'8'},
+      {ch:'校',kun:'',on:'コウ',meaning:'مدرسة',strokes:'10'},
+      {ch:'東',kun:'ひがし',on:'トウ',meaning:'شرق',strokes:'8'},
+      {ch:'西',kun:'にし',on:'セイ',meaning:'غرب',strokes:'6'},
+      {ch:'南',kun:'みなみ',on:'ナン',meaning:'جنوب',strokes:'9'},
+      {ch:'北',kun:'きた',on:'ホク',meaning:'شمال',strokes:'5'},
+      {ch:'車',kun:'くるま',on:'シャ',meaning:'سيارة',strokes:'7'},
+      {ch:'電',kun:'',on:'デン',meaning:'كهرباء',strokes:'13'},
+      {ch:'話',kun:'はな',on:'ワ',meaning:'حديث',strokes:'13'},
+      {ch:'語',kun:'かた',on:'ゴ',meaning:'لغة',strokes:'14'},
+      {ch:'読',kun:'よ',on:'ドク',meaning:'يقرأ',strokes:'14'},
+      {ch:'書',kun:'か',on:'ショ',meaning:'يكتب',strokes:'10'},
+      {ch:'食',kun:'た',on:'ショク',meaning:'يأكل',strokes:'9'},
+      {ch:'飲',kun:'の',on:'イン',meaning:'يشرب',strokes:'12'},
+      {ch:'見',kun:'み',on:'ケン',meaning:'يرى',strokes:'7'},
+      {ch:'聞',kun:'き',on:'ブン',meaning:'يسمع',strokes:'14'},
+      {ch:'行',kun:'い',on:'コウ',meaning:'يذهب',strokes:'6'},
+      {ch:'来',kun:'く',on:'ライ',meaning:'يأتي',strokes:'7'},
+      {ch:'生',kun:'い',on:'セイ',meaning:'حياة',strokes:'5'},
+      {ch:'先',kun:'さき',on:'セン',meaning:'أمام',strokes:'6'},
+    ],
+    grammar:[
+      {name:'～なければならない',jp:'なければならない',tag:'N4',explain:'يُعبّر عن الوجوب (يجب أن...).',formula:'[فعل-صيغة نفي] なければならない',ex_jp:'毎日練習しなければならない。',ex_read:'まいにち れんしゅう しなければならない。',ex_ar:'يجب أن أتدرب كل يوم.'},
+      {name:'～てもいい',jp:'てもいい',tag:'N4',explain:'يُعبّر عن الإذن (يمكنني / مقبول أن...).',formula:'[فعل-صيغة て] もいい',ex_jp:'ここで写真を撮ってもいいですか？',ex_read:'ここで しゃしんを とっても いいですか？',ex_ar:'هل يمكنني التقاط صورة هنا؟'},
+      {name:'～てはいけない',jp:'てはいけない',tag:'N4',explain:'يُعبّر عن المنع (لا يجوز بـ...).',formula:'[فعل-صيغة て] はいけない',ex_jp:'ここで食べてはいけません。',ex_read:'ここで たべては いけません。',ex_ar:'لا يُسمح بالأكل هنا.'},
+      {name:'～と思う',jp:'と思う',tag:'N4',explain:'التعبير عن الرأي (أعتقد أن...).',formula:'[جملة] と思う',ex_jp:'明日は雨だと思います。',ex_read:'あしたは あめだと おもいます。',ex_ar:'أعتقد أن غداً ستمطر.'},
+      {name:'～ので',jp:'ので',tag:'N4',explain:'يُعبّر عن السبب بطريقة مهذبة (لأن...).',formula:'[جملة] ので [نتيجة]',ex_jp:'雨が降っているので、傘を持ってきました。',ex_read:'あめが ふっているので、かさを もってきました。',ex_ar:'لأن المطر ينزل، أحضرت المظلة.'},
+      {name:'～ながら',jp:'ながら',tag:'N4',explain:'القيام بفعلين في وقت واحد (بينما...).',formula:'[جذر الفعل] ながら [فعل]',ex_jp:'音楽を聴きながら歩きます。',ex_read:'おんがくを ききながら あるきます。',ex_ar:'أمشي بينما أستمع إلى الموسيقى.'},
+    ]
+  },
+  N3:{
+    title:'N3 — متوسط',sub:'اللغة اليومية والأسلوب الطبيعي',
+    vocab:[
+      {jp:'経験',read:'けいけん',ar:'خبرة / تجربة',type:'اسم'},
+      {jp:'文化',read:'ぶんか',ar:'ثقافة',type:'اسم'},
+      {jp:'社会',read:'しゃかい',ar:'مجتمع',type:'اسم'},
+      {jp:'関係',read:'かんけい',ar:'علاقة',type:'اسم'},
+      {jp:'問題',read:'もんだい',ar:'مشكلة / سؤال',type:'اسم'},
+      {jp:'方法',read:'ほうほう',ar:'طريقة / أسلوب',type:'اسم'},
+      {jp:'場合',read:'ばあい',ar:'حالة / موقف',type:'اسم'},
+      {jp:'理由',read:'りゆう',ar:'سبب',type:'اسم'},
+      {jp:'気持ち',read:'きもち',ar:'شعور / إحساس',type:'اسم'},
+      {jp:'意味',read:'いみ',ar:'معنى',type:'اسم'},
+      {jp:'笑う',read:'わらう',ar:'يضحك',type:'فعل'},
+      {jp:'泣く',read:'なく',ar:'يبكي',type:'فعل'},
+      {jp:'怒る',read:'おこる',ar:'يغضب',type:'فعل'},
+      {jp:'驚く',read:'おどろく',ar:'يندهش',type:'فعل'},
+      {jp:'選ぶ',read:'えらぶ',ar:'يختار',type:'فعل'},
+      {jp:'決める',read:'きめる',ar:'يقرر',type:'فعل'},
+      {jp:'諦める',read:'あきらめる',ar:'يستسلم',type:'فعل'},
+      {jp:'珍しい',read:'めずらしい',ar:'نادر',type:'صفة'},
+      {jp:'面白い',read:'おもしろい',ar:'ممتع / مثير',type:'صفة'},
+      {jp:'嬉しい',read:'うれしい',ar:'سعيد / مبهوج',type:'صفة'},
+    ],
+    kanji:[
+      {ch:'思',kun:'おも',on:'シ',meaning:'يفكر',strokes:'9'},
+      {ch:'知',kun:'し',on:'チ',meaning:'يعرف',strokes:'8'},
+      {ch:'考',kun:'かんが',on:'コウ',meaning:'يفكر',strokes:'6'},
+      {ch:'言',kun:'い',on:'ゲン',meaning:'يقول',strokes:'7'},
+      {ch:'社',kun:'',on:'シャ',meaning:'شركة',strokes:'7'},
+      {ch:'会',kun:'あ',on:'カイ',meaning:'يلتقي',strokes:'6'},
+      {ch:'働',kun:'はたら',on:'ドウ',meaning:'يعمل',strokes:'13'},
+      {ch:'使',kun:'つか',on:'シ',meaning:'يستخدم',strokes:'8'},
+      {ch:'作',kun:'つく',on:'サク',meaning:'يصنع',strokes:'7'},
+      {ch:'持',kun:'も',on:'ジ',meaning:'يحمل',strokes:'9'},
+      {ch:'買',kun:'か',on:'バイ',meaning:'يشتري',strokes:'12'},
+      {ch:'売',kun:'う',on:'バイ',meaning:'يبيع',strokes:'7'},
+      {ch:'開',kun:'あ',on:'カイ',meaning:'يفتح',strokes:'12'},
+      {ch:'閉',kun:'し',on:'ヘイ',meaning:'يغلق',strokes:'11'},
+      {ch:'始',kun:'はじ',on:'シ',meaning:'يبدأ',strokes:'8'},
+      {ch:'終',kun:'お',on:'シュウ',meaning:'ينتهي',strokes:'11'},
+      {ch:'続',kun:'つづ',on:'ゾク',meaning:'يستمر',strokes:'13'},
+      {ch:'送',kun:'おく',on:'ソウ',meaning:'يرسل',strokes:'9'},
+      {ch:'受',kun:'う',on:'ジュ',meaning:'يتلقى',strokes:'8'},
+      {ch:'返',kun:'かえ',on:'ヘン',meaning:'يعود / يرد',strokes:'7'},
+    ],
+    grammar:[
+      {name:'～ようになる',jp:'ようになる',tag:'N3',explain:'يُعبّر عن التغير التدريجي في القدرة (أصبح قادراً على...).',formula:'[فعل] ようになる',ex_jp:'日本語が話せるようになりました。',ex_read:'にほんごが はなせるように なりました。',ex_ar:'أصبحت قادراً على التحدث باليابانية.'},
+      {name:'～ために',jp:'ために',tag:'N3',explain:'يُعبّر عن الغرض (من أجل / لـ...).',formula:'[فعل-جذر] ために / [اسم] のために',ex_jp:'日本語を学ぶために日本に来ました。',ex_read:'にほんごを まなぶために にほんに きました。',ex_ar:'جئت إلى اليابان لتعلم اليابانية.'},
+      {name:'～らしい',jp:'らしい',tag:'N3',explain:'يُعبّر عن المعلومات المسموعة (يبدو أن...).',formula:'[جملة] らしい',ex_jp:'明日は雪が降るらしい。',ex_read:'あしたは ゆきが ふるらしい。',ex_ar:'يبدو أن الثلج سيسقط غداً.'},
+      {name:'～ば (الشرط)',jp:'ば',tag:'N3',explain:'صيغة شرطية (إذا / لو...).',formula:'[فعل-صيغة ば] [نتيجة]',ex_jp:'もっと練習すれば上手になりますよ。',ex_read:'もっと れんしゅう すれば じょうずに なりますよ。',ex_ar:'إذا تدربت أكثر ستتحسن.'},
+      {name:'～てしまう',jp:'てしまう',tag:'N3',explain:'يُعبّر عن إتمام شيء بشكل كامل أو بشعور من الندم.',formula:'[فعل-صيغة て] しまう',ex_jp:'財布を忘れてしまいました。',ex_read:'さいふを わすれて しまいました。',ex_ar:'للأسف نسيت محفظتي.'},
+    ]
+  },
+  N2:{
+    title:'N2 — متقدم',sub:'الأسلوب الرسمي وفهم النصوص المعقدة',
+    vocab:[
+      {jp:'状況',read:'じょうきょう',ar:'وضع / ظرف',type:'اسم'},
+      {jp:'影響',read:'えいきょう',ar:'تأثير',type:'اسم'},
+      {jp:'原因',read:'げんいん',ar:'سبب / علة',type:'اسم'},
+      {jp:'結果',read:'けっか',ar:'نتيجة',type:'اسم'},
+      {jp:'目的',read:'もくてき',ar:'هدف / غرض',type:'اسم'},
+      {jp:'意見',read:'いけん',ar:'رأي',type:'اسم'},
+      {jp:'主張',read:'しゅちょう',ar:'ادعاء / تأكيد',type:'اسم'},
+      {jp:'批判',read:'ひはん',ar:'نقد',type:'اسم'},
+      {jp:'判断',read:'はんだん',ar:'حكم / قرار',type:'اسم'},
+      {jp:'対象',read:'たいしょう',ar:'هدف / موضوع',type:'اسم'},
+      {jp:'述べる',read:'のべる',ar:'يذكر / يعبّر',type:'فعل'},
+      {jp:'示す',read:'しめす',ar:'يُظهر / يدل',type:'فعل'},
+      {jp:'認める',read:'みとめる',ar:'يعترف / يقبل',type:'فعل'},
+      {jp:'否定する',read:'ひていする',ar:'ينفي',type:'فعل'},
+      {jp:'反映する',read:'はんえいする',ar:'يعكس',type:'فعل'},
+      {jp:'著しい',read:'いちじるしい',ar:'ملحوظ / بارز',type:'صفة'},
+      {jp:'複雑',read:'ふくざつ',ar:'معقد',type:'صفة-な'},
+      {jp:'曖昧',read:'あいまい',ar:'غامض / مبهم',type:'صفة-な'},
+      {jp:'適切',read:'てきせつ',ar:'مناسب / ملائم',type:'صفة-な'},
+      {jp:'慎重',read:'しんちょう',ar:'حذر / متأنٍّ',type:'صفة-な'},
+    ],
+    kanji:[
+      {ch:'政',kun:'',on:'セイ',meaning:'سياسة',strokes:'9'},
+      {ch:'治',kun:'おさ',on:'ジ',meaning:'يحكم',strokes:'8'},
+      {ch:'経',kun:'へ',on:'ケイ',meaning:'اقتصاد',strokes:'11'},
+      {ch:'済',kun:'す',on:'サイ',meaning:'يتم / اقتصاد',strokes:'11'},
+      {ch:'法',kun:'',on:'ホウ',meaning:'قانون',strokes:'8'},
+      {ch:'権',kun:'',on:'ケン',meaning:'حق / سلطة',strokes:'15'},
+      {ch:'義',kun:'',on:'ギ',meaning:'واجب / معنى',strokes:'13'},
+      {ch:'論',kun:'',on:'ロン',meaning:'نقاش',strokes:'15'},
+      {ch:'議',kun:'',on:'ギ',meaning:'اجتماع',strokes:'20'},
+      {ch:'評',kun:'',on:'ヒョウ',meaning:'تقييم',strokes:'12'},
+      {ch:'判',kun:'',on:'ハン',meaning:'حكم',strokes:'7'},
+      {ch:'批',kun:'',on:'ヒ',meaning:'نقد',strokes:'7'},
+      {ch:'解',kun:'と',on:'カイ',meaning:'يحل / يفهم',strokes:'13'},
+      {ch:'説',kun:'と',on:'セツ',meaning:'يشرح',strokes:'14'},
+      {ch:'述',kun:'の',on:'ジュツ',meaning:'يذكر',strokes:'8'},
+      {ch:'記',kun:'しる',on:'キ',meaning:'يكتب',strokes:'10'},
+      {ch:'録',kun:'',on:'ロク',meaning:'يسجل',strokes:'16'},
+      {ch:'報',kun:'むく',on:'ホウ',meaning:'يبلّغ',strokes:'12'},
+      {ch:'告',kun:'つ',on:'コク',meaning:'يُعلن',strokes:'7'},
+      {ch:'調',kun:'しら',on:'チョウ',meaning:'يبحث / ينسجم',strokes:'15'},
+    ],
+    grammar:[
+      {name:'～にもかかわらず',jp:'にもかかわらず',tag:'N2',explain:'يُعبّر عن التناقض (على الرغم من...).',formula:'[اسم/فعل] にもかかわらず [نتيجة مفاجئة]',ex_jp:'病気にもかかわらず、彼は出席した。',ex_read:'びょうきにもかかわらず、かれは しゅっせきした。',ex_ar:'على الرغم من مرضه، حضر.'},
+      {name:'～をはじめ',jp:'をはじめ',tag:'N2',explain:'يُعبّر عن ذكر مثال كممثل لمجموعة (بما في ذلك...).',formula:'[مثال] をはじめ [أمثلة أخرى]',ex_jp:'日本語をはじめ、中国語も学んでいる。',ex_read:'にほんごをはじめ、ちゅうごくごも まなんでいる。',ex_ar:'يتعلم اليابانية وكذلك الصينية.'},
+      {name:'～に対して',jp:'に対して',tag:'N2',explain:'يُعبّر عن الاتجاه تجاه شيء (تجاه / بالنسبة لـ...).',formula:'[اسم] に対して [موقف/فعل]',ex_jp:'この問題に対して、異論がある。',ex_read:'この もんだいに たいして、いろんがある。',ex_ar:'هناك اعتراض تجاه هذه المشكلة.'},
+      {name:'～ざるを得ない',jp:'ざるを得ない',tag:'N2',explain:'يُعبّر عن الاضطرار (لا يسعني إلا أن...).',formula:'[جذر الفعل] ざるを得ない',ex_jp:'状況から考えて、諦めざるを得ない。',ex_read:'じょうきょうから かんがえて、あきらめざるを えない。',ex_ar:'بالنظر إلى الوضع، لا يسعني إلا الاستسلام.'},
+    ]
+  },
+  N1:{
+    title:'N1 — متقن',sub:'إتقان اللغة الرسمية والأدبية',
+    vocab:[
+      {jp:'概念',read:'がいねん',ar:'مفهوم / فكرة',type:'اسم'},
+      {jp:'本質',read:'ほんしつ',ar:'جوهر / ماهية',type:'اسم'},
+      {jp:'前提',read:'ぜんてい',ar:'افتراض مسبق',type:'اسم'},
+      {jp:'矛盾',read:'むじゅん',ar:'تناقض',type:'اسم'},
+      {jp:'逆説',read:'ぎゃくせつ',ar:'مفارقة',type:'اسم'},
+      {jp:'皮肉',read:'ひにく',ar:'سخرية / مفارقة',type:'اسم'},
+      {jp:'象徴',read:'しょうちょう',ar:'رمز',type:'اسم'},
+      {jp:'省略',read:'しょうりゃく',ar:'اختصار / حذف',type:'اسم'},
+      {jp:'抽象',read:'ちゅうしょう',ar:'تجريد',type:'اسم'},
+      {jp:'倫理',read:'りんり',ar:'أخلاق',type:'اسم'},
+      {jp:'醸し出す',read:'かもしだす',ar:'يولّد / يُشيع',type:'فعل'},
+      {jp:'見極める',read:'みきわめる',ar:'يحدد / يتحقق',type:'فعل'},
+      {jp:'踏まえる',read:'ふまえる',ar:'يستند إلى',type:'فعل'},
+      {jp:'鑑みる',read:'かんがみる',ar:'يأخذ بعين الاعتبار',type:'فعل'},
+      {jp:'差し控える',read:'さしひかえる',ar:'يمتنع عن',type:'فعل'},
+      {jp:'卓越',read:'たくえつ',ar:'تفوق / امتياز',type:'صفة-な'},
+      {jp:'辛辣',read:'しんらつ',ar:'قاسٍ / لاذع',type:'صفة-な'},
+      {jp:'荘厳',read:'そうごん',ar:'مهيب / رائع',type:'صفة-な'},
+      {jp:'斬新',read:'ざんしん',ar:'مبتكر / جديد',type:'صفة-な'},
+      {jp:'克明',read:'こくめい',ar:'دقيق / مفصّل',type:'صفة-な'},
+    ],
+    kanji:[
+      {ch:'憂',kun:'うれ',on:'ユウ',meaning:'قلق / حزن',strokes:'15'},
+      {ch:'慶',kun:'',on:'ケイ',meaning:'فرح / تهنئة',strokes:'15'},
+      {ch:'畏',kun:'おそ',on:'イ',meaning:'رهبة / خشية',strokes:'9'},
+      {ch:'崇',kun:'あが',on:'スウ',meaning:'يبجّل',strokes:'11'},
+      {ch:'謙',kun:'',on:'ケン',meaning:'تواضع',strokes:'17'},
+      {ch:'敬',kun:'うやま',on:'ケイ',meaning:'يحترم',strokes:'13'},
+      {ch:'倫',kun:'',on:'リン',meaning:'أخلاق',strokes:'10'},
+      {ch:'哲',kun:'',on:'テツ',meaning:'فلسفة / حكمة',strokes:'10'},
+      {ch:'隆',kun:'',on:'リュウ',meaning:'ازدهار',strokes:'11'},
+      {ch:'衰',kun:'おとろ',on:'スイ',meaning:'تدهور',strokes:'10'},
+      {ch:'継',kun:'つ',on:'ケイ',meaning:'يرث / يواصل',strokes:'13'},
+      {ch:'承',kun:'',on:'ショウ',meaning:'يقبل / يوافق',strokes:'8'},
+      {ch:'諦',kun:'あきら',on:'テイ',meaning:'يستسلم',strokes:'16'},
+      {ch:'奮',kun:'ふる',on:'フン',meaning:'يجتهد / حماس',strokes:'16'},
+      {ch:'励',kun:'はげ',on:'レイ',meaning:'يشجّع',strokes:'7'},
+      {ch:'慕',kun:'した',on:'ボ',meaning:'يشتاق',strokes:'14'},
+      {ch:'尊',kun:'たっと',on:'ソン',meaning:'يحترم / ثمين',strokes:'12'},
+      {ch:'卑',kun:'いや',on:'ヒ',meaning:'حقير / منخفض',strokes:'9'},
+      {ch:'崩',kun:'くず',on:'ホウ',meaning:'ينهار',strokes:'11'},
+      {ch:'築',kun:'きず',on:'チク',meaning:'يبني',strokes:'16'},
+    ],
+    grammar:[
+      {name:'～いかんによらず',jp:'いかんによらず',tag:'N1',explain:'بغض النظر عن... صيغة رسمية جداً.',formula:'[اسم] のいかんによらず',ex_jp:'理由のいかんによらず、遅刻は許されない。',ex_read:'りゆうのいかんによらず、ちこくは ゆるされない。',ex_ar:'بغض النظر عن السبب، التأخير غير مقبول.'},
+      {name:'～をもって',jp:'をもって',tag:'N1',explain:'يُعبّر عن الوسيلة أو الانتهاء الرسمي (بواسطة / بهذا...).',formula:'[اسم] をもって',ex_jp:'本日をもって、この業務を終了いたします。',ex_read:'ほんじつを もって、この ぎょうむを しゅうりょう いたします。',ex_ar:'بتاريخ اليوم نُنهي هذا العمل.'},
+      {name:'～にして',jp:'にして',tag:'N1',explain:'يُعبّر عن صفتين في آنٍ واحد.',formula:'[اسم] にして [صفة/حالة]',ex_jp:'彼は天才にして努力家でもある。',ex_read:'かれは てんさいに して どりょくかでも ある。',ex_ar:'هو عبقري وفي الوقت ذاته مجتهد.'},
+      {name:'～ならでは',jp:'ならでは',tag:'N1',explain:'يُعبّر عن خاصية فريدة (لا يصح إلا لـ / مميز لـ...).',formula:'[اسم] ならでは の [اسم]',ex_jp:'これは日本ならではの文化だ。',ex_read:'これは にほん ならでは の ぶんかだ。',ex_ar:'هذه ثقافة فريدة من نوعها في اليابان.'},
+    ]
+  }
+};
+
+// KANA
+const H_BASIC=[{ch:'あ',ro:'a'},{ch:'い',ro:'i'},{ch:'う',ro:'u'},{ch:'え',ro:'e'},{ch:'お',ro:'o'},{ch:'か',ro:'ka'},{ch:'き',ro:'ki'},{ch:'く',ro:'ku'},{ch:'け',ro:'ke'},{ch:'こ',ro:'ko'},{ch:'さ',ro:'sa'},{ch:'し',ro:'shi'},{ch:'す',ro:'su'},{ch:'せ',ro:'se'},{ch:'そ',ro:'so'},{ch:'た',ro:'ta'},{ch:'ち',ro:'chi'},{ch:'つ',ro:'tsu'},{ch:'て',ro:'te'},{ch:'と',ro:'to'},{ch:'な',ro:'na'},{ch:'に',ro:'ni'},{ch:'ぬ',ro:'nu'},{ch:'ね',ro:'ne'},{ch:'の',ro:'no'},{ch:'は',ro:'ha'},{ch:'ひ',ro:'hi'},{ch:'ふ',ro:'fu'},{ch:'へ',ro:'he'},{ch:'ほ',ro:'ho'},{ch:'ま',ro:'ma'},{ch:'み',ro:'mi'},{ch:'む',ro:'mu'},{ch:'め',ro:'me'},{ch:'も',ro:'mo'},{ch:'や',ro:'ya'},{ch:'',ro:''},{ch:'ゆ',ro:'yu'},{ch:'',ro:''},{ch:'よ',ro:'yo'},{ch:'ら',ro:'ra'},{ch:'り',ro:'ri'},{ch:'る',ro:'ru'},{ch:'れ',ro:'re'},{ch:'ろ',ro:'ro'},{ch:'わ',ro:'wa'},{ch:'',ro:''},{ch:'を',ro:'wo'},{ch:'',ro:''},{ch:'ん',ro:'n'}];
+const H_DAKU=[{ch:'が',ro:'ga'},{ch:'ぎ',ro:'gi'},{ch:'ぐ',ro:'gu'},{ch:'げ',ro:'ge'},{ch:'ご',ro:'go'},{ch:'ざ',ro:'za'},{ch:'じ',ro:'ji'},{ch:'ず',ro:'zu'},{ch:'ぜ',ro:'ze'},{ch:'ぞ',ro:'zo'},{ch:'だ',ro:'da'},{ch:'ぢ',ro:'di'},{ch:'づ',ro:'du'},{ch:'で',ro:'de'},{ch:'ど',ro:'do'},{ch:'ば',ro:'ba'},{ch:'び',ro:'bi'},{ch:'ぶ',ro:'bu'},{ch:'べ',ro:'be'},{ch:'ぼ',ro:'bo'},{ch:'ぱ',ro:'pa'},{ch:'ぴ',ro:'pi'},{ch:'ぷ',ro:'pu'},{ch:'ぺ',ro:'pe'},{ch:'ぽ',ro:'po'}];
+const H_YOON=[{ch:'きゃ',ro:'kya'},{ch:'きゅ',ro:'kyu'},{ch:'きょ',ro:'kyo'},{ch:'しゃ',ro:'sha'},{ch:'しゅ',ro:'shu'},{ch:'しょ',ro:'sho'},{ch:'ちゃ',ro:'cha'},{ch:'ちゅ',ro:'chu'},{ch:'ちょ',ro:'cho'},{ch:'にゃ',ro:'nya'},{ch:'にゅ',ro:'nyu'},{ch:'にょ',ro:'nyo'},{ch:'ひゃ',ro:'hya'},{ch:'ひゅ',ro:'hyu'},{ch:'ひょ',ro:'hyo'},{ch:'みゃ',ro:'mya'},{ch:'みゅ',ro:'myu'},{ch:'みょ',ro:'myo'},{ch:'りゃ',ro:'rya'},{ch:'りゅ',ro:'ryu'},{ch:'りょ',ro:'ryo'},{ch:'ぎゃ',ro:'gya'},{ch:'ぎゅ',ro:'gyu'},{ch:'ぎょ',ro:'gyo'},{ch:'じゃ',ro:'ja'},{ch:'じゅ',ro:'ju'},{ch:'じょ',ro:'jo'},{ch:'びゃ',ro:'bya'},{ch:'びゅ',ro:'byu'},{ch:'びょ',ro:'byo'},{ch:'ぴゃ',ro:'pya'},{ch:'ぴゅ',ro:'pyu'},{ch:'ぴょ',ro:'pyo'}];
+const K_BASIC=[{ch:'ア',ro:'a'},{ch:'イ',ro:'i'},{ch:'ウ',ro:'u'},{ch:'エ',ro:'e'},{ch:'オ',ro:'o'},{ch:'カ',ro:'ka'},{ch:'キ',ro:'ki'},{ch:'ク',ro:'ku'},{ch:'ケ',ro:'ke'},{ch:'コ',ro:'ko'},{ch:'サ',ro:'sa'},{ch:'シ',ro:'shi'},{ch:'ス',ro:'su'},{ch:'セ',ro:'se'},{ch:'ソ',ro:'so'},{ch:'タ',ro:'ta'},{ch:'チ',ro:'chi'},{ch:'ツ',ro:'tsu'},{ch:'テ',ro:'te'},{ch:'ト',ro:'to'},{ch:'ナ',ro:'na'},{ch:'ニ',ro:'ni'},{ch:'ヌ',ro:'nu'},{ch:'ネ',ro:'ne'},{ch:'ノ',ro:'no'},{ch:'ハ',ro:'ha'},{ch:'ヒ',ro:'hi'},{ch:'フ',ro:'fu'},{ch:'ヘ',ro:'he'},{ch:'ホ',ro:'ho'},{ch:'マ',ro:'ma'},{ch:'ミ',ro:'mi'},{ch:'ム',ro:'mu'},{ch:'メ',ro:'me'},{ch:'モ',ro:'mo'},{ch:'ヤ',ro:'ya'},{ch:'',ro:''},{ch:'ユ',ro:'yu'},{ch:'',ro:''},{ch:'ヨ',ro:'yo'},{ch:'ラ',ro:'ra'},{ch:'リ',ro:'ri'},{ch:'ル',ro:'ru'},{ch:'レ',ro:'re'},{ch:'ロ',ro:'ro'},{ch:'ワ',ro:'wa'},{ch:'',ro:''},{ch:'ヲ',ro:'wo'},{ch:'',ro:''},{ch:'ン',ro:'n'}];
+const K_DAKU=[{ch:'ガ',ro:'ga'},{ch:'ギ',ro:'gi'},{ch:'グ',ro:'gu'},{ch:'ゲ',ro:'ge'},{ch:'ゴ',ro:'go'},{ch:'ザ',ro:'za'},{ch:'ジ',ro:'ji'},{ch:'ズ',ro:'zu'},{ch:'ゼ',ro:'ze'},{ch:'ゾ',ro:'zo'},{ch:'ダ',ro:'da'},{ch:'ヂ',ro:'di'},{ch:'ヅ',ro:'du'},{ch:'デ',ro:'de'},{ch:'ド',ro:'do'},{ch:'バ',ro:'ba'},{ch:'ビ',ro:'bi'},{ch:'ブ',ro:'bu'},{ch:'ベ',ro:'be'},{ch:'ボ',ro:'bo'},{ch:'パ',ro:'pa'},{ch:'ピ',ro:'pi'},{ch:'プ',ro:'pu'},{ch:'ペ',ro:'pe'},{ch:'ポ',ro:'po'}];
+
+// ===== STATE =====
+let curLevel='N5',fcIdx=0,fcKnew=0,fcForgot=0,fcFlipped=false,qIdx=0,qScore=0,qItems=[];
+
+function getLS(){try{return JSON.parse(localStorage.getItem('jpData')||'{}');}catch(e){return{};}}
+function saveLS(d){localStorage.setItem('jpData',JSON.stringify(d));}
+function getProg(lv){const d=getLS();return d[lv]||{pct:0,wl:0,kl:0};}
+function setProg(lv,obj){const d=getLS();d[lv]={...getProg(lv),...obj};saveLS(d);}
+
+function getStreak(){
+  const d=getLS();const today=new Date().toDateString();
+  if(!d.lastVisit){d.streak=1;d.lastVisit=today;saveLS(d);return 1;}
+  if(d.lastVisit===today)return d.streak||1;
+  const diff=Math.floor((new Date()-new Date(d.lastVisit))/86400000);
+  d.streak=diff===1?(d.streak||0)+1:1;
+  d.lastVisit=today;saveLS(d);return d.streak;
+}
+
+function initStreak(){
+  const s=getStreak();
+  document.getElementById('streakCount').textContent=s;
+  document.getElementById('streakStat').textContent=s;
+}
+
+function updateHome(){
+  let tw=0,tk=0,tp=0,cnt=0;
+  ['N5','N4','N3','N2','N1','kana'].forEach(lv=>{
+    const p=getProg(lv);
+    tw+=p.wl||0;tk+=p.kl||0;tp+=p.pct||0;cnt++;
+    const bar=document.getElementById('prog-'+lv);
+    const txt=document.getElementById('ptxt-'+lv);
+    if(bar)bar.style.width=(p.pct||0)+'%';
+    if(txt)txt.textContent=p.pct?Math.round(p.pct)+'% مكتمل':'لم تبدأ بعد';
+  });
+  document.getElementById('totalWords').textContent=tw;
+  document.getElementById('totalKanji').textContent=tk;
+  document.getElementById('totalPct').textContent=Math.round(tp/cnt)+'%';
+}
+
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');
+  if(id==='home')updateHome();
+}
+
+function openLevel(lv){
+  if(lv==='kana'){showView('kana');buildKana();return;}
+  curLevel=lv;
+  const d=DATA[lv];
+  document.getElementById('lh-title').textContent=d.title;
+  document.getElementById('lh-sub').textContent=d.sub;
+  buildVocab();buildKanji();buildGrammar();initFC();buildQuiz();
+  switchTab('vocab',0);
+  showView('level');
+  // mark progress if first visit
+  const p=getProg(lv);
+  if(!p.pct){setProg(lv,{pct:5,wl:0,kl:0});}
+}
+
+function switchTab(tab,idx){
+  document.querySelectorAll('#view-level .tab-pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.querySelectorAll('#levelTabs .tab-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+}
+
+function switchKanaTab(tab,idx){
+  document.querySelectorAll('#view-kana .tab-pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.querySelectorAll('#view-kana .tab-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+}
+
+function buildVocab(){
+  document.getElementById('vocab-grid').innerHTML=DATA[curLevel].vocab.map(v=>`
+    <div class="vocab-card">
+      <button class="speak-btn" onclick="speak('${v.jp}',event)">🔊</button>
+      <div class="vc-jp">${v.jp}</div>
+      <div class="vc-read">${v.read}</div>
+      <div class="vc-ar">${v.ar}</div>
+      <div class="vc-type">${v.type}</div>
+    </div>`).join('');
+}
+
+function buildKanji(){
+  document.getElementById('kanji-grid').innerHTML=DATA[curLevel].kanji.map(k=>`
+    <div class="kanji-card">
+      <div class="kj-char" onclick="speak('${k.ch}',null)">${k.ch}</div>
+      <div class="kj-tags">
+        ${k.kun?`<span class="kj-tag kun">訓: ${k.kun}</span>`:''}
+        ${k.on?`<span class="kj-tag on">音: ${k.on}</span>`:''}
+      </div>
+      <div class="kj-meaning">${k.meaning}</div>
+      <div class="kj-strokes">${k.strokes} خط</div>
+    </div>`).join('');
+}
+
+function buildGrammar(){
+  document.getElementById('grammar-list').innerHTML=DATA[curLevel].grammar.map(g=>`
+    <div class="grammar-card">
+      <div class="gc-title">${g.name} <span class="gc-jp">${g.jp}</span> <span class="gc-tag">${g.tag}</span></div>
+      <div class="gc-section"><div class="gc-label">الشرح</div><div class="gc-text">${g.explain}</div></div>
+      <div class="gc-section"><div class="gc-label">الصيغة</div><div class="gc-formula">${g.formula}</div></div>
+      <div class="gc-section"><div class="gc-label">مثال</div>
+        <div class="gc-example">
+          <div class="gc-ex-jp">${g.ex_jp}</div>
+          <div class="gc-ex-read">${g.ex_read}</div>
+          <div class="gc-ex-ar">${g.ex_ar}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function buildKana(){
+  renderKanaGrid('hira-basic',H_BASIC);
+  renderKanaGrid('hira-daku',H_DAKU);
+  renderKanaGrid('hira-yoon',H_YOON);
+  renderKanaGrid('kata-basic',K_BASIC);
+  renderKanaGrid('kata-daku',K_DAKU);
+  const p=getProg('kana');
+  if(!p.pct)setProg('kana',{pct:10,wl:46,kl:0});
+}
+function renderKanaGrid(id,arr){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.innerHTML=arr.map(k=>k.ch
+    ?`<div class="kana-cell" onclick="speak('${k.ch}',null)"><div class="kana-ch">${k.ch}</div><div class="kana-ro">${k.ro}</div></div>`
+    :`<div class="kana-cell kana-empty"></div>`
+  ).join('');
+}
+
+// FLASHCARDS
+function initFC(){fcIdx=0;fcKnew=0;fcForgot=0;fcFlipped=false;renderFC();}
+function renderFC(){
+  const v=DATA[curLevel].vocab;const c=v[fcIdx];
+  document.getElementById('fc-jp').textContent=c.jp;
+  document.getElementById('fc-read').textContent=c.read;
+  document.getElementById('fc-ans').textContent=c.ar;
+  document.getElementById('fc-ans-read').textContent=c.type;
+  document.getElementById('fc-counter').textContent=`البطاقة ${fcIdx+1} من ${v.length}`;
+  document.getElementById('fc-knew-count').textContent=fcKnew;
+  document.getElementById('fc-forgot-count').textContent=fcForgot;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fc-btns').style.display='none';
+  fcFlipped=false;
+}
+function flipCard(){
+  if(fcFlipped)return;
+  document.getElementById('flashcard').classList.add('flipped');
+  document.getElementById('fc-btns').style.display='flex';
+  fcFlipped=true;
+  speak(DATA[curLevel].vocab[fcIdx].jp,null);
+  // mark progress
+  const p=getProg(curLevel);
+  const newPct=Math.min(100,Math.round(((fcIdx+1)/DATA[curLevel].vocab.length)*60)+5);
+  if(newPct>p.pct)setProg(curLevel,{pct:newPct,wl:fcIdx+1});
+}
+function fcAnswer(knew){if(knew)fcKnew++;else fcForgot++;fcNext();}
+function fcNext(){fcIdx=(fcIdx+1)%DATA[curLevel].vocab.length;renderFC();}
+function fcPrev(){fcIdx=(fcIdx-1+DATA[curLevel].vocab.length)%DATA[curLevel].vocab.length;renderFC();}
+
+// QUIZ
+function buildQuiz(){qItems=shuffle([...DATA[curLevel].vocab]).slice(0,10);qIdx=0;qScore=0;renderQ();}
+function renderQ(){
+  const wrap=document.getElementById('quiz-wrap');
+  if(qIdx>=qItems.length){
+    const pct=Math.round((qScore/qItems.length)*100);
+    const msg=pct>=80?'🎉 ممتاز! أنت على المسار الصحيح!':pct>=50?'👍 جيد! استمر في التدريب':'💪 لا تستسلم! راجع الكلمات وحاول مجدداً';
+    wrap.innerHTML=`<div class="quiz-result"><div class="quiz-result-score">${qScore}/${qItems.length}</div><div class="quiz-result-msg">${msg}</div><button class="btn-primary" onclick="buildQuiz()">إعادة الاختبار 🔄</button></div>`;
+    // update progress
+    const p=getProg(curLevel);const newPct=Math.min(100,(p.pct||0)+Math.round(pct/5));
+    setProg(curLevel,{pct:newPct});
+    return;
+  }
+  const item=qItems[qIdx];
+  const wrong=shuffle(DATA[curLevel].vocab.filter(v=>v.ar!==item.ar)).slice(0,3).map(v=>v.ar);
+  const opts=shuffle([item.ar,...wrong]);
+  const pg=((qIdx/qItems.length)*100).toFixed(0);
+  wrap.innerHTML=`
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${pg}%"></div></div>
+    <div class="quiz-jp">${item.jp}</div>
+    <div class="quiz-q">ما معنى هذه الكلمة؟</div>
+    <div class="quiz-options">${opts.map(o=>`<button class="quiz-opt" onclick="answerQ(this,'${esc(o)}','${esc(item.ar)}','${esc(item.jp)}')">${o}</button>`).join('')}</div>
+    <div id="qfb"></div>`;
+}
+function esc(s){return s.replace(/'/g,"\\'").replace(/"/g,'&quot;');}
+function answerQ(btn,chosen,correct,jp){
+  document.querySelectorAll('.quiz-opt').forEach(o=>{o.disabled=true;if(o.textContent===correct)o.classList.add('correct');});
+  const fb=document.getElementById('qfb');
+  if(chosen===correct){qScore++;btn.classList.add('correct');fb.className='quiz-feedback ok';fb.textContent='✅ صحيح!';}
+  else{btn.classList.add('wrong');fb.className='quiz-feedback no';fb.textContent=`❌ خطأ! الإجابة: ${correct}`;}
+  speak(jp,null);
+  fb.insertAdjacentHTML('afterend','<button class="quiz-next" onclick="nextQ()">التالي ›</button>');
+}
+function nextQ(){qIdx++;renderQ();}
+
+// UTILS
+function shuffle(a){return [...a].sort(()=>Math.random()-.5);}
+function speak(text,event){
+  if(event)event.stopPropagation();
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='ja-JP';u.rate=0.85;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+  showToast('🔊 '+text);
+}
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1800);
+}
+function toggleTheme(){
+  const dark=document.documentElement.getAttribute('data-theme')==='dark';
+  document.documentElement.setAttribute('data-theme',dark?'':'dark');
+  document.getElementById('themeBtn').textContent=dark?'🌙':'☀️';
+  localStorage.setItem('jpTheme',dark?'light':'dark');
+}
+
+// INIT
+(function(){
+  const th=localStorage.getItem('jpTheme')||'light';
+  if(th==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeBtn').textContent='☀️';}
+  initStreak();updateHome();
+})();
+</script>
+</body>
+</html>
