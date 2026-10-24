@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null
+          && request.auth.token.email != null
+          && request.auth.token.email_verified == true;
+    }
+    function mail() { return request.auth.token.email.lower(); }
+    function isOwner() { return signedIn() && mail() == 'kiraiii.002@gmail.com'; }
+    function isAdmin() {
+      return isOwner()
+          || (signedIn() && exists(/databases/$(database)/documents/team/$(mail())));
+    }
+
+    // Artworks: everyone can view; only the team can add/edit/delete.
+    // A buyer may only flip "originalAvailable" to false (marks original as sold).
+    match /artworks/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['originalAvailable'])
+                    && request.resource.data.originalAvailable == false;
+    }
+
+    // Full-size artwork images (kept apart so the gallery list stays light).
+    match /images/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Orders: anyone can place one; only the team can read / manage.
+    match /orders/{id} {
+      allow create: if request.resource.data.status == 'new'
+                    && request.resource.data.id == id
+                    && request.resource.data.type in ['order', 'custom']
+                    && request.resource.data.customer.name is string
+                    && request.resource.data.customer.name.size() < 200;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Team list: only the owner manages it; a member can read their own entry.
+    match /team/{email} {
+      allow get: if signedIn() && mail() == email;
+      allow list: if isAdmin();
+      allow write: if isOwner();
+    }
+
+    // Shop settings (shipping fee ...)
+    match /settings/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}
